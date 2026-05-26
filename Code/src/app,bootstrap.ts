@@ -40,7 +40,7 @@ async function bootstrap() {
   );
 
   // 3. Health Check Route
-  app.get("/", (req: express.Request, res: express.Response) => {
+  app.get("/api/", (req: express.Request, res: express.Response) => {
     res.send("Echo Server is Live and Secure 🚀");
   });
 
