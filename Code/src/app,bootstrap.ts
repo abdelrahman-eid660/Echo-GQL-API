@@ -48,7 +48,7 @@ async function bootstrap() {
   app.all("/api/graphql" , authentication() , createHandler({schema , context : (req)=>({token : req.raw.token , ip: req.raw.ip})}))
   
   // App-routing
-  app.post("/Echo/create-presigned-link", authentication() ,async (req , res , next)=>{
+  app.post("/api/Echo/create-presigned-link", authentication() ,async (req , res , next)=>{
     const {ContentType , OriginalName , path} = req.body
     if (!ContentType && !OriginalName && !path) {
       throw new BadRequestException("Bad Request check from your Data")
@@ -56,7 +56,7 @@ async function bootstrap() {
     const {url , Key} =  await s3Service.createPreSignedUploadLink({ContentType , OriginalName , path })
     successResponse({res , data  : {url , Key}})
   })
-  app.get("/uploads/*path",async (req: express.Request, res: express.Response): Promise<void> => {
+  app.get("/api/uploads/*path",async (req: express.Request, res: express.Response): Promise<void> => {
       const {download , fileName} = req.query as {download : string , fileName : string}
       const { path } = req.params as { path: string[] };
       const Key = path.join("/");
@@ -70,7 +70,7 @@ async function bootstrap() {
       return await s3WriteStream(Body as NodeJS.ReadableStream, res);
     },
   );
-  app.get("/pre-signed/*path",async (req: express.Request, res: express.Response): Promise<void> => {
+  app.get("/api/pre-signed/*path",async (req: express.Request, res: express.Response): Promise<void> => {
       const {download , fileName} = req.query as {download : string , fileName : string}
       const { path } = req.params as { path: string[] };
       const Key = path.join("/");
