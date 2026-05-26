@@ -45,7 +45,7 @@ async function bootstrap() {
   });
 
   // App-GraphQl
-  app.all("/graphql" , authentication() , createHandler({schema , context : (req)=>({token : req.raw.token , ip: req.raw.ip})}))
+  app.all("/api/graphql" , authentication() , createHandler({schema , context : (req)=>({token : req.raw.token , ip: req.raw.ip})}))
   
   // App-routing
   app.post("/Echo/create-presigned-link", authentication() ,async (req , res , next)=>{
