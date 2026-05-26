@@ -7,10 +7,8 @@
   "type": "commonjs",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/main.js",
     "start:dev": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"node --watch dist/main.js\"",
-    "start:prod": "cross-env NODE_ENV=production npm run build && pm2 start dist/main.js --name \"echo-backend\""
+    "start:prod": "cross-env NODE_ENV=production pm2 start dist/main.js --name \"echo-backend\""
   },
   "keywords": [],
   "devDependencies": {
