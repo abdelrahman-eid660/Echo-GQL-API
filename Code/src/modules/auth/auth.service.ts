@@ -111,7 +111,7 @@ export class AuthService {
     return "OTP sent to your email"
   }
   async confirmForgetPassword({ email, otp } : ConfirmOTPGQLDTO) : Promise<string>{
-  const user = this.UserRepository.findOne({    filter: {
+  const user = await this.UserRepository.findOne({filter: {
       email,
       confirmedAt: { $exists: true },
       provider: ProviderEnum.SYSTEM,
